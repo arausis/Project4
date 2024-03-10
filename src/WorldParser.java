@@ -168,6 +168,7 @@ public class WorldParser {
                 case Sapling.SAPLING_KEY -> parseSapling(specificProperties, id, position, imageLibrary);
                 case Stump.STUMP_KEY -> parseStump(specificProperties, position, id, imageLibrary);
                 case Tree.TREE_KEY -> parseTree(specificProperties, id, position, imageLibrary);
+                case Gnome.GNOME_KEY -> parseGnome(specificProperties, id, position, imageLibrary);
                 default -> throw new IllegalArgumentException(String.format("Unexpected entity key: %s", key));
             };
         } else {
@@ -213,6 +214,29 @@ public class WorldParser {
                     imageLibrary.get(Fairy.FAIRY_KEY),
                     Double.parseDouble(properties[Fairy.FAIRY_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX]),
                     Double.parseDouble(properties[Fairy.FAIRY_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX])
+            );
+
+        } else {
+            throw new IllegalArgumentException(String.format(
+                    "%s requires %d properties when parsing, got %d",
+                    Fairy.FAIRY_KEY,
+                    Fairy.FAIRY_PARSE_PROPERTY_COUNT,
+                    properties.length
+            ));
+        }
+    }
+
+    private static Entity parseGnome(String[] properties, String id, Point position, ImageLibrary imageLibrary) {
+        if (properties.length == Fairy.FAIRY_PARSE_PROPERTY_COUNT) {
+
+            // Modify to use a constructor from your class hierarchy
+            // Ensure the order of all passed arguments match the desired parameters
+            return new Gnome(
+                    id,
+                    position,
+                    imageLibrary.get(Gnome.GNOME_KEY),
+                    Double.parseDouble(properties[Gnome.GNOME_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX]),
+                    Double.parseDouble(properties[Gnome.GNOME_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX])
             );
 
         } else {
