@@ -48,16 +48,16 @@ public class Ent extends Entity implements obstacle{
             if (!getPosition().equals(nextPos)) {
                 if(world.getBackgroundCell(position).getId().equals("grass")){
                     Random rand = new Random();
-                    int r = rand.nextInt(5);
+                    int r = rand.nextInt(10);
                     switch(r){
                         case 1:
-                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps1"), 0));
                             break;
                         case 2:
-                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps2"), 0));
                             break;
                         case 3:
-                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps3"), 0));
                             break;
                         default:
                             break;

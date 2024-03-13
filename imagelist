@@ -1,6 +1,11 @@
 grass images/grass.png
 grass_flowers images/grass_flowers.png
-grass_mushrooms images/grass_mushrooms.png
+grass_mushrooms images/grass_mushrooms1.png
+grass_mushrooms2 images/grass_mushrooms2.png
+grass_mushrooms3 images/grass_mushrooms3.png
+footsteps1 images/footsteps1.png
+footsteps2 images/footsteps2.png
+footsteps3 images/footsteps3.png
 grass_path_left images/grass_path_left.png
 grass_path_right images/grass_path_right.png
 grass_path_bottom images/grass_path_bottom.png
@@ -53,3 +58,7 @@ gnome images/gnome1.png
 gnome images/gnome2.png
 ent images/Ent1.png
 ent images/Ent2.png
+harpoon_R images/Harpoon_R.png
+harpoon_L images/Harpoon_L.png
+harpoon_U images/Harpoon_U.png
+harpoon_D images/Harpoon_D.png

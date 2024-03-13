@@ -29,7 +29,7 @@ public class shroomDude extends Entity implements obstacle{
                 world.setBackgroundCell(tgtPos, background);
                 scheduler.scheduleEvent(new Water("none", new Point(0,0), imageLibrary.get("none")),
                         new growingMushroom(world, imageLibrary,
-                        new Mushroom(Mushroom.MUSHROOM_KEY, tgtPos, imageLibrary.get(Mushroom.MUSHROOM_KEY), 4)), 3 );
+                        new Mushroom(Mushroom.MUSHROOM_KEY, tgtPos, imageLibrary.get(Mushroom.MUSHROOM_KEY), 4), 1), 3 );
                 world.removeEntity(scheduler, this);
             }
         }
