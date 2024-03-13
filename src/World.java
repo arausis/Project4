@@ -56,10 +56,11 @@ public final class World {
         for(Entity e : candidates){
             if(e instanceof Tree){
                 System.out.println(e.getPosition());
-                Ent newEnt = new Ent( (Tree)e, imageLibrary.get(Ent.ENT_KEY), 0.5, 0.5);
+                Ent newEnt = new Ent( (Tree)e, imageLibrary.get(Ent.ENT_KEY), 0.5, 1.2);
                 this.removeEntity(scheduler, e);
                 this.addEntity(newEnt);
                 newEnt.scheduleActions(scheduler, this, imageLibrary);
+                return;
             }
         }
     }

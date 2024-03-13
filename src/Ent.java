@@ -3,6 +3,7 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -24,10 +25,9 @@ public class Ent extends Entity implements obstacle{
         if (entTarget.isPresent()) {
             Point tgtPos = entTarget.get().getPosition();
 
-            if (moveTo(world, entTarget.get(), scheduler)) {
+            if (moveTo(world, entTarget.get(), scheduler, imageLibrary)) {
                 Background background = new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0);
                 world.setBackgroundCell(tgtPos, background);
-                world.removeEntity(scheduler, world.getOccupant(tgtPos).get());
             }
         }
 
@@ -39,13 +39,31 @@ public class Ent extends Entity implements obstacle{
         imageIndex = imageIndex + 1;
     }
 
-    public boolean moveTo(World world, Entity target, EventScheduler scheduler) {
+    public boolean moveTo(World world, Entity target, EventScheduler scheduler, ImageLibrary imageLibrary) {
         if (getPosition().adjacentTo(target.getPosition())) {
             world.removeEntity(scheduler, target);
             return true;
         } else {
             Point nextPos = nextPosition(world, target.getPosition());
             if (!getPosition().equals(nextPos)) {
+                if(world.getBackgroundCell(position).getId().equals("grass")){
+                    Random rand = new Random();
+                    int r = rand.nextInt(5);
+                    switch(r){
+                        case 1:
+                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            break;
+                        case 2:
+                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            break;
+                        case 3:
+                            world.setBackgroundCell(position, new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
                 world.moveEntity(scheduler, this, nextPos);
             }
             return false;
