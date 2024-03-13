@@ -43,8 +43,8 @@ Background: grass grass grass grass grass grass_path_left grass grass grass gras
 Background: grass grass grass grass grass_path_corner_bottom_right grass_path_left grass grass grass grass grass grass water_edge water_tile water_tile water_edge water_edge water_edge grass_path_bottom_right grass_path_corner_top_left grass grass grass grass grass grass grass grass grass grass grass grass
 Background: water_edge water_edge water_edge water_edge grass_path_bottom_right grass grass water_edge water_edge water_edge water_edge water_edge water_tile water_tile water_tile water_tile water_tile water_tile bridge_vertical water_edge water_edge grass_flowers grass grass grass_flowers grass grass grass grass grass grass grass
 Background: water_tile water_tile water_tile water_tile bridge_vertical water_edge water_edge water_tile water_tile water_tile water_tile water_tile water_tile grass grass grass grass water_tile bridge_vertical water_tile water_tile water_edge water_edge grass grass grass grass grass grass grass grass grass
-Background: grass grass grass grass grass_path_top_left grass water_tile water_tile grass grass grass grass grass grass grass_flowers grass grass grass_path_bottom grass_path_top_left water_tile water_tile water_tile water_tile water_edge water_edge water_edge grass grass grass water_edge water_edge water_edge
-Background: grass grass grass_flowers grass grass_path_top_right grass grass grass grass grass_flowers grass grass grass_path_bottom grass_path_bottom grass_path_bottom grass_path_bottom grass_path_bottom grass_path_left grass water_tile water_tile water_tile water_tile water_tile water_tile water_tile water_edge water_edge bridge_vertical water_tile water_tile water_tile
+Background: grass grass grass grass grass_path_top_left grass water_tile water_tile grass grass grass grass grass grass grass_flowers grass grass grass_path_bottom grass_path_top_left water_tile water_tile water_tile water_tile water_edge water_edge water_edge grass grass grass grass grass grass
+Background: grass grass grass_flowers grass grass_path_top_right grass grass grass grass grass_flowers grass grass grass_path_bottom grass_path_bottom grass_path_bottom grass_path_bottom grass_path_bottom grass_path_left grass water_tile water_tile water_tile water_tile water_tile water_tile water_tile water_edge water_edge bridge_vertical water_edge water_edge water_edge
 Background: grass grass grass_path_bottom grass_path_bottom grass_path_bottom_right grass_path_top grass_path_top grass_path_top grass_path_top grass_path_top grass_path_top grass_path_top_left grass_path_bottom_left grass_path_corner_bottom_left grass grass grass grass water_edge water_tile water_tile water_tile water_tile water_tile water_tile water_tile bridge_vertical bridge_horizontal bridge_vertical water_tile water_tile water_tile
 Background: grass grass_path_corner_bottom_right grass_path_left grass_flowers grass_flowers water_edge water_edge water_edge water_edge water_edge grass_flowers grass grass_flowers grass_path_bottom_left grass_path_corner_bottom_left grass grass grass water_tile water_tile water_tile water_tile water_tile water_tile water_tile water_tile bridge_vertical water_tile water_tile water_tile water_tile water_tile
 Background: grass grass_path_right grass grass_flowers water_edge water_tile water_tile water_tile water_tile water_tile water_edge grass_flowers grass grass grass_path_corner_top_left grass grass water_edge water_tile water_tile water_tile water_tile water_tile grass_flowers grass grass grass grass grass water_tile water_tile water_tile
@@ -168,7 +168,6 @@ Entity: stump  31 3
 #
 Entity: tree  16 4 0.125 0.325 3
 Entity: tree  17 4 0.075 0.150 2
-Entity: tree  21 4 0.050 0.100 5
 Entity: fairy mars 25 4 1.000 0.500
 Entity: tree  27 4 0.125 0.250 1
 Entity: tree  28 4 0.033 0.063 3
@@ -209,9 +208,6 @@ Entity: water  24 8
 Entity: water  25 8
 Entity: tree  26 8 0.100 0.250 3
 Entity: stump  27 8
-Entity: water  29 8
-Entity: water  30 8
-Entity: water  31 8
 # Area 3
 Entity: tree  1 9 0.200 0.400 4
 #

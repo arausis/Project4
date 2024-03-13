@@ -26,7 +26,7 @@ public class Ent extends Entity implements obstacle{
             Point tgtPos = entTarget.get().getPosition();
 
             if (moveTo(world, entTarget.get(), scheduler, imageLibrary)) {
-                Background background = new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0);
+                Background background = new Background("bloodygrass", imageLibrary.get("bloodygrass"), 0);
                 world.setBackgroundCell(tgtPos, background);
             }
         }
