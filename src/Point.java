@@ -5,10 +5,10 @@ import java.util.Optional;
 /** Represents a location in 2D space.*/
 public class Point {
     /** The horizontal component. */
-    public final int x;
+    public int x;
 
     /** The vertical component. Larger values are lower on the screen. */
-    public final int y;
+    public int y;
 
 
     public Point(int x, int y) {

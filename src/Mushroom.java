@@ -1,8 +1,6 @@
 import processing.core.PImage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Mushroom extends Entity implements obstacle{
     public static final String MUSHROOM_KEY = "mushroom";
@@ -14,7 +12,6 @@ public class Mushroom extends Entity implements obstacle{
     public void scheduleActions(EventScheduler scheduler, World world, ImageLibrary imageLibrary) {
         scheduleBehavior(scheduler, world, imageLibrary);
     }
-
 
     /** Executes Mushroom specific Logic. */
     public void executeActivity(World world, ImageLibrary imageLibrary, EventScheduler scheduler) {
@@ -29,13 +26,15 @@ public class Mushroom extends Entity implements obstacle{
         List<Point> mushroomBackgroundPositions = new ArrayList<>();
         List<Point> mushroomEntityPositions = new ArrayList<>();
         for (Point adjacentPosition : adjacentPositions) {
-            if (world.inBounds(adjacentPosition) && !world.isOccupied(adjacentPosition) && world.hasBackground(adjacentPosition)) {
-                Background bg = world.getBackgroundCell(adjacentPosition);
-                if (bg.getId().equals("grass")) {
-                    mushroomBackgroundPositions.add(adjacentPosition);
-                } else if (bg.getId().equals("grass_mushrooms")) {
-                    mushroomEntityPositions.add(adjacentPosition);
-                }
+            Random rand = new Random();
+            int r = rand.nextInt(3);
+            if (r == 1 && world.inBounds(adjacentPosition) && !world.isOccupied(adjacentPosition) && world.hasBackground(adjacentPosition)) {
+                Entity sdude = new shroomDude(shroomDude.shroomDude_KEY , adjacentPosition,
+                        imageLibrary.get(shroomDude.shroomDude_KEY ), 0.1, 0.3);
+
+                world.addEntity(sdude);
+                sdude.scheduleActions(scheduler, world, imageLibrary);
+                break;
             }
         }
 

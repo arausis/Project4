@@ -25,9 +25,9 @@ public class Fairy extends Entity implements obstacle{
             Point tgtPos = fairyTarget.get().getPosition();
 
             if (moveTo(world, fairyTarget.get(), scheduler)) {
-                //Entity sapling = new Sapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageLibrary.get(Sapling.SAPLING_KEY));
-                Entity sapling = new shroomDude(shroomDude.shroomDude_KEY + "_" + fairyTarget.get().id, tgtPos,
-                        imageLibrary.get(shroomDude.shroomDude_KEY ), 0.1, 0.3);
+                Entity sapling = new Sapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageLibrary.get(Sapling.SAPLING_KEY));
+//                Entity sapling = new shroomDude(shroomDude.shroomDude_KEY + "_" + fairyTarget.get().id, tgtPos,
+//                        imageLibrary.get(shroomDude.shroomDude_KEY ), 0.1, 0.3);
 
                 world.addEntity(sapling);
                 sapling.scheduleActions(scheduler, world, imageLibrary);

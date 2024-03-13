@@ -8,29 +8,26 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class shroomDude extends Entity implements obstacle{
+public class Ent extends Entity implements obstacle{
 
-    public static final String shroomDude_KEY = "shroomDude";
-    public static final int SHROOM_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
-    public static final int SHROOM_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;
-    public static final int SHROOM_PARSE_PROPERTY_COUNT = 2;
-    public shroomDude(String id, Point position, List<PImage> images, double animationPeriod, double behaviorPeriod) {
-        super(id, position, images, animationPeriod, behaviorPeriod);
+    public static final String ENT_KEY = "ent";
+    public static final int ENT_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
+    public static final int ENT_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;
+    public static final int Ent_PARSE_PROPERTY_COUNT = 2;
+    public Ent(Tree tree, List<PImage> images, double animationPeriod, double behaviorPeriod) {
+        super(ENT_KEY, tree.position, images, animationPeriod, behaviorPeriod);
     }
 
     public void executeActivity(World world, ImageLibrary imageLibrary, EventScheduler scheduler) {
-        Optional<Entity> shroomTarget = world.findNearest(getPosition(), new ArrayList<>(List.of(Stump.class)));
+        Optional<Entity> entTarget = world.findNearest(getPosition(), new ArrayList<>(List.of(Dude.class)));
 
-        if (shroomTarget.isPresent()) {
-            Point tgtPos = shroomTarget.get().getPosition();
+        if (entTarget.isPresent()) {
+            Point tgtPos = entTarget.get().getPosition();
 
-            if (moveTo(world, shroomTarget.get(), scheduler)) {
+            if (moveTo(world, entTarget.get(), scheduler)) {
                 Background background = new Background("grass_mushrooms", imageLibrary.get("grass_mushrooms"), 0);
                 world.setBackgroundCell(tgtPos, background);
-                scheduler.scheduleEvent(new Water("none", new Point(0,0), imageLibrary.get("none")),
-                        new growingMushroom(world, imageLibrary,
-                        new Mushroom(Mushroom.MUSHROOM_KEY, tgtPos, imageLibrary.get(Mushroom.MUSHROOM_KEY), 4)), 3 );
-                world.removeEntity(scheduler, this);
+                world.removeEntity(scheduler, world.getOccupant(tgtPos).get());
             }
         }
 

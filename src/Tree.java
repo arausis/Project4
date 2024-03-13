@@ -43,10 +43,14 @@ public class Tree extends Healthy implements obstacle{
     public boolean transform(World world, EventScheduler scheduler, ImageLibrary imageLibrary) {
         if (health <= 0) {
             Entity stump = new Stump(Stump.STUMP_KEY + "_" + id, position, imageLibrary.get(Stump.STUMP_KEY));
+            world.addEntity(stump);
 
             world.removeEntity(scheduler, this);
-
-            world.addEntity(stump);
+            world.treesCut ++;
+            if(world.treesCut == -1){
+                world.spawnEnt(scheduler, imageLibrary);
+                world.treesCut=0;
+            }
 
             return true;
         }

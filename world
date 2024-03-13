@@ -160,7 +160,6 @@ Entity: tree  16 3 0.025 0.088 4
 Entity: tree  17 3 0.075 0.150 2
 Entity: tree  18 3 0.033 0.063 3
 Entity: mushroom  19 3 4.0
-Entity: tree  21 3 0.125 0.325 3
 Entity: tree  22 3 0.050 0.100 5
 Entity: stump  23 3
 Entity: tree  25 3 0.500 0.250 3

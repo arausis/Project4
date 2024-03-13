@@ -9,6 +9,7 @@ import java.util.List;
 public final class World {
     /** World height. */
     private final int numRows;
+    public int treesCut;
 
     /** World width. */
     private final int numCols;
@@ -47,6 +48,20 @@ public final class World {
     /** Returns 'true' if the given point contains an entity. */
     public boolean isOccupied(Point position) {
         return occupancy[position.y][position.x] != null;
+    }
+
+    public void spawnEnt(EventScheduler scheduler, ImageLibrary imageLibrary){
+        List<Entity> candidates = new ArrayList<>(this.entities.stream().toList());
+        Collections.shuffle(candidates);
+        for(Entity e : candidates){
+            if(e instanceof Tree){
+                System.out.println(e.getPosition());
+                Ent newEnt = new Ent( (Tree)e, imageLibrary.get(Ent.ENT_KEY), 0.5, 0.5);
+                this.removeEntity(scheduler, e);
+                this.addEntity(newEnt);
+                newEnt.scheduleActions(scheduler, this, imageLibrary);
+            }
+        }
     }
 
     /** Returns the (optional) entity at the given point. */
