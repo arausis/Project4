@@ -22,7 +22,7 @@ public class Dude extends Resourceful implements obstacle{
     /** Executes Dude specific Logic. */
     public void executeActivity(World world, ImageLibrary imageLibrary, EventScheduler scheduler) {
         Optional<Entity> dudeTarget = findTarget(world);
-        if (dudeTarget.isEmpty() || !moveTo(world, dudeTarget.get(), scheduler) || !transform(world, scheduler, imageLibrary)) {
+        if (dudeTarget.isEmpty() || !moveTo(world, dudeTarget.get(), scheduler, imageLibrary) || !transform(world, scheduler, imageLibrary)) {
             scheduleBehavior(scheduler, world, imageLibrary);
         }
     }
@@ -41,10 +41,18 @@ public class Dude extends Resourceful implements obstacle{
     }
 
     /** Attempts to move the Dude toward a target, returning True if already adjacent to it. */
-    public boolean moveTo(World world, Entity target, EventScheduler scheduler) {
+    public boolean moveTo(World world, Entity target, EventScheduler scheduler, ImageLibrary imageLibrary) {
         if (position.adjacentTo(target.position)) {
             if (target instanceof Tree || target instanceof Sapling) {
                 ((Healthy)target).setHealth(((Healthy)target).getHealth() - 1);
+            }
+            else if (target instanceof House){
+                ((House)target).setResourceCount(((House) target).getResourceCount() + 1);
+                if(((House) target).getResourceCount() == ((House) target).getResourceLimit()){
+                    ((House) target).spawnDude(world, imageLibrary, scheduler);
+                    ((House) target).setResourceCount(0);
+                    ((House) target).setResourceLimit(((House) target).getResourceLimit() + 2);
+                }
             }
             return true;
         } else {

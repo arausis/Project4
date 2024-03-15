@@ -27,7 +27,7 @@ public class Mushroom extends Entity implements obstacle{
         List<Point> mushroomEntityPositions = new ArrayList<>();
         for (Point adjacentPosition : adjacentPositions) {
             Random rand = new Random();
-            int r = rand.nextInt(3);
+            int r = rand.nextInt(5);
             if (r == 1 && world.inBounds(adjacentPosition) && !world.isOccupied(adjacentPosition) && world.hasBackground(adjacentPosition)) {
                 Entity sdude = new shroomDude(shroomDude.shroomDude_KEY , adjacentPosition,
                         imageLibrary.get(shroomDude.shroomDude_KEY ), 0.1, 0.3);

@@ -9,37 +9,36 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class Fairy extends Entity implements obstacle{
+public class Slug extends Entity implements obstacle{
 
-    public static final String FAIRY_KEY = "fairy";
-    public static final int FAIRY_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
-    public static final int FAIRY_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;
-    public static final int FAIRY_PARSE_PROPERTY_COUNT = 2;
-    public Fairy(String id, Point position, List<PImage> images, double animationPeriod, double behaviorPeriod) {
+    public static final String SLUG_KEY = "slug";
+    public static final int SLUG_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
+    public static final int SLUG_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;
+    public static final int SLUG_PARSE_PROPERTY_COUNT = 2;
+    public Slug(String id, Point position, List<PImage> images, double animationPeriod, double behaviorPeriod) {
         super(id, position, images, animationPeriod, behaviorPeriod);
     }
-    /** Executes Fairy specific Logic. */
+
     public void executeActivity(World world, ImageLibrary imageLibrary, EventScheduler scheduler) {
-        Optional<Entity> fairyTarget = world.findNearest(getPosition(), new ArrayList<>(List.of(Stump.class)));
+        Optional<Entity> slugTarget = world.findNearest(getPosition(), new ArrayList<>(List.of(Mushroom.class)));
 
-        if (fairyTarget.isPresent()) {
-            Point tgtPos = fairyTarget.get().getPosition();
+        if (slugTarget.isPresent()) {
+            Point tgtPos = slugTarget.get().getPosition();
 
-            if (moveTo(world, fairyTarget.get(), scheduler, imageLibrary)) {
-                Entity sapling = new Sapling(Sapling.SAPLING_KEY + "_" + fairyTarget.get().id, tgtPos, imageLibrary.get(Sapling.SAPLING_KEY));
-                world.addEntity(sapling);
-                sapling.scheduleActions(scheduler, world, imageLibrary);
+            if (moveTo(world, slugTarget.get(), scheduler, imageLibrary)) {
+                Background background = new Background("grass", imageLibrary.get("grass"), 0);
+                world.setBackgroundCell(tgtPos, background);
             }
         }
 
         scheduleBehavior(scheduler, world, imageLibrary);
+
     }
 
     public void updateImage() {
         imageIndex = imageIndex + 1;
     }
 
-    /** Attempts to move the Fairy toward a target, returning True if already adjacent to it. */
     public boolean moveTo(World world, Entity target, EventScheduler scheduler, ImageLibrary imageLibrary) {
         if (getPosition().adjacentTo(target.getPosition())) {
             world.removeEntity(scheduler, target);
@@ -47,16 +46,10 @@ public class Fairy extends Entity implements obstacle{
         } else {
             Point nextPos = nextPosition(world, target.getPosition());
             if (!getPosition().equals(nextPos)) {
-                Point prevposition = new Point(position.x, position.y);
-                world.moveEntity(scheduler, this, nextPos);
-                Random rand = new Random();
-                int r = rand.nextInt(6);
-                if(r == 1  && world.grassType(prevposition)) {
-                    Entity sapling = new Sapling(Sapling.SAPLING_KEY, prevposition, imageLibrary.get(Sapling.SAPLING_KEY));
-                    world.addEntity(sapling);
-                    sapling.scheduleActions(scheduler, world, imageLibrary);
+                if(world.grassType(position)){
+                    //world.setBackgroundCell(position, new Background("slimeygrass", imageLibrary.get("slimeygrass"), 0));
                 }
-
+                world.moveEntity(scheduler, this, nextPos);
             }
             return false;
         }
@@ -65,7 +58,6 @@ public class Fairy extends Entity implements obstacle{
         scheduleAnimation(scheduler, world, imageLibrary);
         scheduleBehavior(scheduler, world, imageLibrary);
     }
-    /** Determines a Fairy's next position when moving. */
     public Point nextPosition(World world, Point destination) {
 
         // A pathing strategy instantiation

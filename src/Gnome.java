@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Gnome extends Entity implements obstacle{
-
     public static final String GNOME_KEY = "gnome";
     public static final int GNOME_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
     public static final int GNOME_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;

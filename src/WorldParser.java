@@ -169,6 +169,9 @@ public class WorldParser {
                 case Stump.STUMP_KEY -> parseStump(specificProperties, position, id, imageLibrary);
                 case Tree.TREE_KEY -> parseTree(specificProperties, id, position, imageLibrary);
                 case Gnome.GNOME_KEY -> parseGnome(specificProperties, id, position, imageLibrary);
+                case Ent.ENT_KEY -> parseEnt(specificProperties, id, position, imageLibrary);
+                case Slug.SLUG_KEY -> parseSlug(specificProperties, id, position, imageLibrary);
+                case shroomDude.shroomDude_KEY -> parseShroomDude(specificProperties, id, position, imageLibrary);
                 default -> throw new IllegalArgumentException(String.format("Unexpected entity key: %s", key));
             };
         } else {
@@ -226,6 +229,75 @@ public class WorldParser {
         }
     }
 
+    private static Entity parseSlug(String[] properties, String id, Point position, ImageLibrary imageLibrary) {
+        if (properties.length == Slug.SLUG_PARSE_PROPERTY_COUNT) {
+
+            // Modify to use a constructor from your class hierarchy
+            // Ensure the order of all passed arguments match the desired parameters
+            return new Slug(
+                    id,
+                    position,
+                    imageLibrary.get(Slug.SLUG_KEY),
+                    Double.parseDouble(properties[Slug.SLUG_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX]),
+                    Double.parseDouble(properties[Slug.SLUG_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX])
+            );
+
+        } else {
+            throw new IllegalArgumentException(String.format(
+                    "%s requires %d properties when parsing, got %d",
+                    Slug.SLUG_KEY,
+                    Slug.SLUG_PARSE_PROPERTY_COUNT,
+                    properties.length
+            ));
+        }
+    }
+
+    private static Entity parseEnt(String[] properties, String id, Point position, ImageLibrary imageLibrary) {
+        if (properties.length == Ent.ENT_PARSE_PROPERTY_COUNT) {
+
+            // Modify to use a constructor from your class hierarchy
+            // Ensure the order of all passed arguments match the desired parameters
+            return new Ent(
+                    id,
+                    position,
+                    imageLibrary.get(Ent.ENT_KEY),
+                    Double.parseDouble(properties[Ent.ENT_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX]),
+                    Double.parseDouble(properties[Ent.ENT_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX])
+            );
+
+        } else {
+            throw new IllegalArgumentException(String.format(
+                    "%s requires %d properties when parsing, got %d",
+                    Ent.ENT_KEY,
+                    Ent.ENT_PARSE_PROPERTY_COUNT,
+                    properties.length
+            ));
+        }
+    }
+
+    private static Entity parseShroomDude(String[] properties, String id, Point position, ImageLibrary imageLibrary) {
+        if (properties.length == shroomDude.SHROOM_PARSE_PROPERTY_COUNT) {
+
+            // Modify to use a constructor from your class hierarchy
+            // Ensure the order of all passed arguments match the desired parameters
+            return new shroomDude(
+                    id,
+                    position,
+                    imageLibrary.get(shroomDude.shroomDude_KEY),
+                    Double.parseDouble(properties[shroomDude.SHROOM_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX]),
+                    Double.parseDouble(properties[shroomDude.SHROOM_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX])
+            );
+
+        } else {
+            throw new IllegalArgumentException(String.format(
+                    "%s requires %d properties when parsing, got %d",
+                    shroomDude.shroomDude_KEY,
+                    shroomDude.SHROOM_PARSE_PROPERTY_COUNT,
+                    properties.length
+            ));
+        }
+    }
+
     private static Entity parseGnome(String[] properties, String id, Point position, ImageLibrary imageLibrary) {
         if (properties.length == Fairy.FAIRY_PARSE_PROPERTY_COUNT) {
 
@@ -242,8 +314,8 @@ public class WorldParser {
         } else {
             throw new IllegalArgumentException(String.format(
                     "%s requires %d properties when parsing, got %d",
-                    Fairy.FAIRY_KEY,
-                    Fairy.FAIRY_PARSE_PROPERTY_COUNT,
+                    Gnome.GNOME_KEY,
+                    Gnome.GNOME_PARSE_PROPERTY_COUNT,
                     properties.length
             ));
         }

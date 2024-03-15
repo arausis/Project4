@@ -11,4 +11,20 @@ public abstract class Resourceful extends Entity{
         this.resourceCount = resourceCount;
         this.resourceLimit = resourceLimit;
     }
+
+    public int getResourceCount() {
+        return resourceCount;
+    }
+
+    public void setResourceCount(int resourceCount) {
+        this.resourceCount = resourceCount;
+    }
+
+    public int getResourceLimit() {
+        return resourceLimit;
+    }
+
+    public void setResourceLimit(int resourceLimit) {
+        this.resourceLimit = resourceLimit;
+    }
 }

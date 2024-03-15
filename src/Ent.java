@@ -9,14 +9,14 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class Ent extends Entity implements obstacle{
+public class Ent extends Healthy implements obstacle{
 
     public static final String ENT_KEY = "ent";
     public static final int ENT_PARSE_PROPERTY_BEHAVIOR_PERIOD_INDEX = 0;
     public static final int ENT_PARSE_PROPERTY_ANIMATION_PERIOD_INDEX = 1;
-    public static final int Ent_PARSE_PROPERTY_COUNT = 2;
-    public Ent(Tree tree, List<PImage> images, double animationPeriod, double behaviorPeriod) {
-        super(ENT_KEY, tree.position, images, animationPeriod, behaviorPeriod);
+    public static final int ENT_PARSE_PROPERTY_COUNT = 2;
+    public Ent(String id, Point position, List<PImage> images, double animationPeriod, double behaviorPeriod) {
+        super(id, position, images, animationPeriod, behaviorPeriod, 3);
     }
 
     public void executeActivity(World world, ImageLibrary imageLibrary, EventScheduler scheduler) {
@@ -25,14 +25,12 @@ public class Ent extends Entity implements obstacle{
         if (entTarget.isPresent()) {
             Point tgtPos = entTarget.get().getPosition();
 
-            if (moveTo(world, entTarget.get(), scheduler, imageLibrary)) {
+            if (moveTo(world, entTarget.get(), scheduler, imageLibrary) && world.grassType(tgtPos)) {
                 Background background = new Background("bloodygrass", imageLibrary.get("bloodygrass"), 0);
                 world.setBackgroundCell(tgtPos, background);
             }
         }
-
         scheduleBehavior(scheduler, world, imageLibrary);
-
     }
 
     public void updateImage() {
@@ -46,21 +44,39 @@ public class Ent extends Entity implements obstacle{
         } else {
             Point nextPos = nextPosition(world, target.getPosition());
             if (!getPosition().equals(nextPos)) {
-                if(world.getBackgroundCell(position).getId().equals("grass")){
+                if(world.grassType(position)){
                     Random rand = new Random();
-                    int r = rand.nextInt(10);
+                    int r = rand.nextInt(9);
                     switch(r){
                         case 1:
                             world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps1"), 0));
+                            health --;
                             break;
                         case 2:
                             world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps2"), 0));
+                            health--;
                             break;
                         case 3:
                             world.setBackgroundCell(position, new Background("footsteps1", imageLibrary.get("footsteps3"), 0));
+                            health--;
                             break;
                         default:
                             break;
+                    }
+                    if(health == 0){
+                        Entity tree = new Tree(
+                                Tree.TREE_KEY + "_" + id,
+                                position,
+                                imageLibrary.get(Tree.TREE_KEY),
+                                NumberUtil.getRandomDouble(Tree.TREE_RANDOM_ANIMATION_PERIOD_MIN, Tree.TREE_RANDOM_ANIMATION_PERIOD_MAX), NumberUtil.getRandomDouble(Tree.TREE_RANDOM_BEHAVIOR_PERIOD_MIN, Tree.TREE_RANDOM_BEHAVIOR_PERIOD_MAX),
+                                NumberUtil.getRandomInt(Tree.TREE_RANDOM_HEALTH_MIN, Tree.TREE_RANDOM_HEALTH_MAX)
+                        );
+
+                        world.removeEntity(scheduler, this);
+
+                        world.addEntity(tree);
+                        tree.scheduleActions(scheduler, world, imageLibrary);
+                        return false;
                     }
                 }
 

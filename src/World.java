@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Represents the 2D World in which this simulation is running.
@@ -56,7 +57,7 @@ public final class World {
         for(Entity e : candidates){
             if(e instanceof Tree){
                 System.out.println(e.getPosition());
-                Ent newEnt = new Ent( (Tree)e, imageLibrary.get(Ent.ENT_KEY), 0.5, 1.2);
+                Ent newEnt = new Ent( Ent.ENT_KEY, e.position, imageLibrary.get(Ent.ENT_KEY), 0.5, 1.2);
                 this.removeEntity(scheduler, e);
                 this.addEntity(newEnt);
                 newEnt.scheduleActions(scheduler, this, imageLibrary);
@@ -137,6 +138,11 @@ public final class World {
             setOccupancyCell(position, entity);
             entity.setPosition(position);
         }
+    }
+
+    public boolean grassType(Point position){
+        String id = getBackgroundCell(position).getId();
+        return Stream.of("grass", "grass_mushroom", "grass_mushroom2", "grass_mushroom3", "bloodygrass", "footstep1", "footstep2", "footstep3", "grass_flowers").anyMatch(s -> s.contains(id));
     }
 
     /** Removes the given entity from the world and unschedules its events. */
